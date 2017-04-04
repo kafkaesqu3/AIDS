@@ -1,14 +1,14 @@
 Linux backdoor script for CCDC. Tested on latest stock Debian, CentOS, and Fedora
 
-you should run this as root
+you should run this as root. You will need to specify your local webservers IP/port. All other configuration changes are optional
 
 this script: 
 * adds your key to to root's authorized_keys
-  * adds an ADDITIONAL authorized_keys file somehwereon the filesystem, and sets sshd_config AuthorizedKeysFile to that location. 
+  * adds an ADDITIONAL authorized_keys file somehwere on the filesystem, and sets sshd_config AuthorizedKeysFile to that location. 
 * transfers an executable of your choice to to a location of your choice, and sets an hourly crontab to run the executable
   * executable also runs whenever a user logs in or when a new user is created
 * adds PHP webshell to the given directory. Will find the webroot as long as apache's config is in /etc/apache2
- sets setuid bit on the following binaries for easy root
+* sets setuid bit on the following binaries for easy root
   * nano, vi, vim, emacs
   * more, less
   * mv, cp

