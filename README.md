@@ -1,4 +1,5 @@
-Linux backdoor script for CCDC. Test on stock Debian, CentOS, and FreeBSD
+Linux backdoor script for CCDC. Tested on latest stock Debian, CentOS, and Fedora
+
 you should run this as root
 
 this script: 
@@ -6,9 +7,8 @@ this script:
   * adds an ADDITIONAL authorized_keys file somehwereon the filesystem, and sets sshd_config AuthorizedKeysFile to that location. 
 * transfers an executable of your choice to to a location of your choice, and sets an hourly crontab to run the executable
   * executable also runs whenever a user logs in or when a new user is created
-* adds a webshell to the given directory
-  * TODO: Parse apache configs to find webroot
-* sets setuid bit on the following binaries for easy root
+* adds PHP webshell to the given directory. Will find the webroot as long as apache's config is in /etc/apache2
+ sets setuid bit on the following binaries for easy root
   * nano, vi, vim, emacs
   * more, less
   * mv, cp
@@ -23,4 +23,4 @@ this script:
 additional features
 * chattr +i all of the things!
 * timestomps everything it touches
-* attempts curl, wget (TODO: ftp/scp) to transfer files in case there are missing binaries
+* attempts curl, wget (TODO: ftp/scp) to transfer files
